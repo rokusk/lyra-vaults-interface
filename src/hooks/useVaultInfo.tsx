@@ -1,6 +1,6 @@
 import { getDefaultProvider } from '@ethersproject/providers'
 import { useEffect, useMemo, useState } from 'react'
-import { whitelistedVaults, trustedRoles, unknownPerson, assets } from '../constant'
+import { whitelistedVaults, trustedRoles, unknownPerson } from '../constant'
 
 /**
  * hooks that returns all the apr information, given a vault address
@@ -19,11 +19,6 @@ export function useVaultInfo(address: string) {
     return trustedRoles.find(person => person.address === ownerAddress) || unknownPerson
   }, [vault?.address, ownerAddress])
 
-  const asset = useMemo(() => {
-    return assets.find(asset => asset.address === assetAddress)
-  }, [vault?.address, ownerAddress])
-
-
   useEffect(() => {
     async function fetchVaultData() {
       // mock address
@@ -39,5 +34,5 @@ export function useVaultInfo(address: string) {
     fetchVaultData()
   }, [address])
 
-  return { ownerEntity, ownerAddress, asset }
+  return { ownerEntity, ownerAddress }
 }

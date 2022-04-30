@@ -18,7 +18,8 @@ export type WhitelistedVault = {
     address: string,
     name: string,
     description: string,
-    type: VaultType
+    type: VaultType,
+    asset: Asset // hardcode to safe some network request
 }
 
 export type Asset = {

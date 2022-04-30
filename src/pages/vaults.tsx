@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 
 import { Heading, Flex } from '@chakra-ui/layout'
 import VaultBox from '../components/VaultBox'
-import { VaultType } from '../types'
+import { Asset, VaultType } from '../types'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -11,11 +11,23 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react'
-import { whitelistedVaults } from '../constant'
+import { whitelistedAssets, whitelistedVaults } from '../constant'
+import { useMemo, useState } from 'react'
 
 const Vaults: NextPage = () => {
 
-  console.log(`whitelistedVaults`, whitelistedVaults.length)
+  const [selectedAsset, setSelectedAsset] = useState<Asset|undefined>(undefined)
+
+  const [selectedType, setSelectedType] = useState<VaultType|undefined>(undefined)
+
+  const vaultsToShow = useMemo(() => {
+    return whitelistedVaults.filter(v => {
+      // filter by type
+      return selectedType === undefined || v.type === selectedType
+    }).filter(v => {
+      return selectedAsset === undefined || v.asset.address === selectedAsset.address
+    })
+  }, [selectedType, selectedAsset?.address]) 
 
   return (
     <Flex
@@ -50,14 +62,16 @@ const Vaults: NextPage = () => {
               rightIcon={<ChevronDownIcon />}
               
             >
-              All Assets
+              {selectedAsset?.symbol || 'All Assets'}
             </MenuButton>
             <MenuList 
               border="hidden"
               bg='brand.400'
             >
-              <MenuItem _hover={{bg:'brand.300'}}>sETH</MenuItem>
-              <MenuItem _hover={{bg:'brand.300'}}>sUSD</MenuItem>
+              <MenuItem _hover={{bg:'brand.300'}} onClick={() => { setSelectedAsset(undefined) }  }>All Assets</MenuItem>
+              {whitelistedAssets.map((asset) => {
+                return <MenuItem _hover={{bg:'brand.300'}} onClick={() => { setSelectedAsset(asset) }  }>{asset.symbol}</MenuItem>
+              })}
             </MenuList>
           </Menu>
 
@@ -67,20 +81,26 @@ const Vaults: NextPage = () => {
               _active={{bg: 'brand.300'}}
               rightIcon={<ChevronDownIcon />}
             >
-              All Type
+              {selectedType || 'All Types'}
             </MenuButton>
             <MenuList 
               border="hidden"
               bg='brand.400'
             >
-              <MenuItem _hover={{bg:'brand.300'}}>{VaultType.COVERED_CALL}</MenuItem>
-              <MenuItem _hover={{bg:'brand.300'}}>{VaultType.NAKDED_CALL}</MenuItem>
-              <MenuItem _hover={{bg:'brand.300'}}>{VaultType.SHORT_PUT}</MenuItem>
+              <MenuItem _hover={{bg:'brand.300'}} onClick={() => { setSelectedType(undefined) }  }>All Types</MenuItem>
+              {Object.values(VaultType).map(type => {
+                return <MenuItem 
+                  onClick={() => setSelectedType(type)}
+                  _hover={{bg:'brand.300'}}
+                >
+                  {type}
+                </MenuItem>
+              })}
             </MenuList>
           </Menu>
         </Flex>
 
-        {whitelistedVaults.map(vault => {
+        {vaultsToShow.map(vault => {
           return <VaultBox vault={vault} key={vault.address}/>
         })}
 

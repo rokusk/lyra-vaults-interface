@@ -26,7 +26,7 @@ const VaultBox = ({ vault }: { vault: WhitelistedVault }) => {
   const TVL = Math.random() * 1000
   const tvlChange = Math.random() * 10 * (Number(TVL > 1000) ? 1 : -1)
 
-  const { ownerEntity, asset } = useVaultInfo(vault.address)
+  const { ownerEntity } = useVaultInfo(vault.address)
 
   return (
     <Box w={"60%"} borderWidth='0.5px' borderRadius='lg' overflow='hidden' padding="18" color="white">
@@ -52,7 +52,7 @@ const VaultBox = ({ vault }: { vault: WhitelistedVault }) => {
       <StatGroup>
         <Stat>
           <StatLabel>TVL</StatLabel>
-          <StatNumber>{TVL.toFixed(2)} {asset?.symbol}</StatNumber>
+          <StatNumber>{TVL.toFixed(2)} {vault.asset.symbol}</StatNumber>
           <StatHelpText>
             <StatArrow type={tvlChange > 0 ? 'increase' : "decrease"} />
             {tvlChange.toFixed(2)}%
@@ -84,7 +84,7 @@ const VaultBox = ({ vault }: { vault: WhitelistedVault }) => {
 
         <Stat>
           <StatLabel>Asset</StatLabel>
-          <Avatar name={asset?.symbol} src={asset?.icon} size="md" margin={1} />
+          <Avatar name={vault.asset.symbol} src={vault.asset.icon} size="md" margin={1} />
         </Stat>
 
       </StatGroup>
