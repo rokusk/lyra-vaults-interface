@@ -8,6 +8,7 @@ import { styles } from './styles'
 // Component style overrides
 import { Button } from './components/button'
 import { Link } from './components/link'
+import { Menu } from './components/menu'
 
 const overiders = {
   colors: {
@@ -38,7 +39,8 @@ const overiders = {
   },
   components: {
     Button,
-    Link
+    Link,
+    Menu
   }
 }
 

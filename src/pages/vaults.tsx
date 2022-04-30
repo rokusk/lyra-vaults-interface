@@ -43,30 +43,39 @@ const Vaults: NextPage = () => {
 
         {/* Filters */}
         <Flex>
-          <Menu>
+          <Menu >
             <MenuButton
               as={Button}
+              _active={{bg: 'brand.300'}}
               rightIcon={<ChevronDownIcon />}
+              
             >
               All Assets
             </MenuButton>
-            <MenuList>
-              <MenuItem>sETH</MenuItem>
-              <MenuItem>sUSD</MenuItem>
+            <MenuList 
+              border="hidden"
+              bg='brand.400'
+            >
+              <MenuItem _hover={{bg:'brand.300'}}>sETH</MenuItem>
+              <MenuItem _hover={{bg:'brand.300'}}>sUSD</MenuItem>
             </MenuList>
           </Menu>
 
-          <Menu>
+          <Menu variant="dropdown">
             <MenuButton
               as={Button}
+              _active={{bg: 'brand.300'}}
               rightIcon={<ChevronDownIcon />}
             >
               All Type
             </MenuButton>
-            <MenuList>
-              <MenuItem>{VaultType.COVERED_CALL}</MenuItem>
-              <MenuItem>{VaultType.NAKDED_CALL}</MenuItem>
-              <MenuItem>{VaultType.SHORT_PUT}</MenuItem>
+            <MenuList 
+              border="hidden"
+              bg='brand.400'
+            >
+              <MenuItem _hover={{bg:'brand.300'}}>{VaultType.COVERED_CALL}</MenuItem>
+              <MenuItem _hover={{bg:'brand.300'}}>{VaultType.NAKDED_CALL}</MenuItem>
+              <MenuItem _hover={{bg:'brand.300'}}>{VaultType.SHORT_PUT}</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
