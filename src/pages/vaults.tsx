@@ -16,9 +16,9 @@ import { useMemo, useState } from 'react'
 
 const Vaults: NextPage = () => {
 
-  const [selectedAsset, setSelectedAsset] = useState<Asset|undefined>(undefined)
+  const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined)
 
-  const [selectedType, setSelectedType] = useState<VaultType|undefined>(undefined)
+  const [selectedType, setSelectedType] = useState<VaultType | undefined>(undefined)
 
   const vaultsToShow = useMemo(() => {
     return whitelistedVaults.filter(v => {
@@ -27,7 +27,7 @@ const Vaults: NextPage = () => {
     }).filter(v => {
       return selectedAsset === undefined || v.asset.address === selectedAsset.address
     })
-  }, [selectedType, selectedAsset?.address]) 
+  }, [selectedType, selectedAsset])
 
   return (
     <Flex
@@ -58,19 +58,24 @@ const Vaults: NextPage = () => {
           <Menu >
             <MenuButton
               as={Button}
-              _active={{bg: 'brand.300'}}
+              _active={{ bg: 'brand.300' }}
               rightIcon={<ChevronDownIcon />}
-              
+
             >
               {selectedAsset?.symbol || 'All Assets'}
             </MenuButton>
-            <MenuList 
+            <MenuList
               border="hidden"
               bg='brand.400'
             >
-              <MenuItem _hover={{bg:'brand.300'}} onClick={() => { setSelectedAsset(undefined) }  }>All Assets</MenuItem>
+              <MenuItem _hover={{ bg: 'brand.300' }} onClick={() => { setSelectedAsset(undefined) }}>All Assets</MenuItem>
               {whitelistedAssets.map((asset) => {
-                return <MenuItem _hover={{bg:'brand.300'}} onClick={() => { setSelectedAsset(asset) }  }>{asset.symbol}</MenuItem>
+                return <MenuItem
+                  key={asset.address}
+                  _hover={{ bg: 'brand.300' }}
+                  onClick={() => { setSelectedAsset(asset) }}>
+                  {asset.symbol}
+                </MenuItem>
               })}
             </MenuList>
           </Menu>
@@ -78,20 +83,21 @@ const Vaults: NextPage = () => {
           <Menu variant="dropdown">
             <MenuButton
               as={Button}
-              _active={{bg: 'brand.300'}}
+              _active={{ bg: 'brand.300' }}
               rightIcon={<ChevronDownIcon />}
             >
               {selectedType || 'All Types'}
             </MenuButton>
-            <MenuList 
+            <MenuList
               border="hidden"
               bg='brand.400'
             >
-              <MenuItem _hover={{bg:'brand.300'}} onClick={() => { setSelectedType(undefined) }  }>All Types</MenuItem>
+              <MenuItem _hover={{ bg: 'brand.300' }} onClick={() => { setSelectedType(undefined) }}>All Types</MenuItem>
               {Object.values(VaultType).map(type => {
-                return <MenuItem 
+                return <MenuItem
+                  key={type}
                   onClick={() => setSelectedType(type)}
-                  _hover={{bg:'brand.300'}}
+                  _hover={{ bg: 'brand.300' }}
                 >
                   {type}
                 </MenuItem>
@@ -101,7 +107,7 @@ const Vaults: NextPage = () => {
         </Flex>
 
         {vaultsToShow.map(vault => {
-          return <VaultBox vault={vault} key={vault.address}/>
+          return <VaultBox vault={vault} key={vault.address} />
         })}
 
       </Flex>
