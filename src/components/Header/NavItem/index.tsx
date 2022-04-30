@@ -35,12 +35,9 @@ export const NavDrawerItem: FC<LinkProps & { onClick: () => void, children: any 
     >
       <Text
         color="#fff"
-        fontSize={20}
+        fontSize={25}
         py={2}
         px={2}
-        _hover={{
-          backgroundColor: 'rgba(255, 255, 255, 0.2)'
-        }}
         style={{ borderRadius: 25 }}
         fontWeight={600}
         display="block"

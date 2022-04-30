@@ -78,8 +78,8 @@ export const Header = () => {
         >
           <Box fontWeight="bold" fontSize={[20, 20, 20]}>
             <NextLink href="/" passHref>
-              <Link className="center flex gap-2">
-                <span className="text-xl">Lyra Vaults</span>
+              <Link variant="noHover">
+                <p className="text-xl">Lyra Vaults</p>
               </Link>
             </NextLink>
           </Box>
@@ -93,7 +93,7 @@ export const Header = () => {
             >
               {navItems.map((navItem, index) => (
                 <NavItem key={index} href={navItem.href}>
-                  <Text className="capitalize">{navItem.text}</Text>
+                  <Link variant="noHover" >{navItem.text}</Link>
                 </NavItem>
               ))}
             </HStack>

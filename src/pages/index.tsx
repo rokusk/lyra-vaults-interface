@@ -1,4 +1,4 @@
-import { Button, Link } from '@chakra-ui/react'
+import { Button, Link, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -35,20 +35,24 @@ const Home: NextPage = () => {
         </p>
 
         <div className={styles.grid}>
-          <Link href='./vaults'>
+          <Link href='./vaults' variant="noHover">
             <Button
               fontSize={20}
             >
-              <p>Explore Products</p>
+              Explore Products
             </Button>
           </Link>
 
-          <Link href='https://www.lyra.finance/' isExternal>
+          <Link href='https://www.lyra.finance/' isExternal variant="noHover">
             <Button
               fontSize={20}
-              backgroundColor="#05c99b"
+              backgroundColor="lyra.800"
+              _hover={{
+                bg: 'lyra.200',
+                
+              }}
             >
-              <p>Learn About Lyra</p>
+              Learn About Lyra
             </Button>
           </Link>
         </div>

@@ -1,8 +1,19 @@
 export const styles = {
     global: {
         body: {
-            bg: '#1F1B24',
-            color: 'white'
+            bg: 'brand.100',
+            color: 'white',
+        },
+        a: {
+            color: 'brand.900',
+            _hover: {
+                textDecoration: 'none',
+            },
+        },
+        button: {
+            _hover: {
+                textDecoration: 'none',
+            },
         }
     }
 }
